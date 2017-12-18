@@ -9,14 +9,21 @@ import java.util.*;
  */
 public class RecordComparator implements Comparator<Scan> {
    private List<String> fields;
+   boolean isDesc;
    
    /**
     * Creates a comparator using the specified fields,
     * using the ordering implied by its iterator.
     * @param fields a list of field names
     */
+   public RecordComparator(List<String> fields, boolean isDesc) {
+      this.fields = fields;
+	  this.isDesc = isDesc;
+   }
+
    public RecordComparator(List<String> fields) {
       this.fields = fields;
+	  this.isDesc = false;
    }
    
    /**
@@ -36,6 +43,8 @@ public class RecordComparator implements Comparator<Scan> {
          Constant val1 = s1.getVal(fldname);
          Constant val2 = s2.getVal(fldname);
          int result = val1.compareTo(val2);
+		 if (isDesc)
+		 	result = -result;
          if (result != 0)
             return result;
       }

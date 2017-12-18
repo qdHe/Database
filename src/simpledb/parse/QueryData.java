@@ -7,20 +7,38 @@ import java.util.*;
  * Data for the SQL <i>select</i> statement.
  * @author Edward Sciore
  */
+ //=====================================
+//add "order by"
+//jindi 12/18
+//=====================================
 public class QueryData {
    private Collection<String> fields;
    private Collection<String> tables;
    private Predicate pred;
+   private List<String> sortFields;
+   private boolean isDesc;
    
    /**
     * Saves the field and table list and predicate.
     */
-   public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred) {
+   public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred,
+   						List<String> sortFields, bool isDesc) {
       this.fields = fields;
       this.tables = tables;
       this.pred = pred;
+	  this.sortFields = sortFields;
+	  this.isDesc = isDesc;
    }
-   
+						
+	public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred) {
+	   this.fields = fields;
+	   this.tables = tables;
+	   this.pred = pred;
+	   this.sortFields = new List<String>;
+	   this.isDesc = false;
+	}
+
+
    /**
     * Returns the fields mentioned in the select clause.
     * @return a collection of field names
@@ -58,6 +76,13 @@ public class QueryData {
       String predstring = pred.toString();
       if (!predstring.equals(""))
          result += " where " + predstring;
+	  if (!sortFields.isEmpty()){
+	  	 result += " order by "; 
+		 for (String fldname : fields)
+         	result += fldname + ", ";
+         result = result.substring(0, result.length()-2); //remove final comma
+	  }
+	  
       return result;
    }
 }

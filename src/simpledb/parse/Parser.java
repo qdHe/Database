@@ -52,8 +52,13 @@ public class Parser {
    }
    
 // Methods for parsing queries
-   
+//=====================================
+//add "order by"
+//jindi 12/18
+//=====================================
    public QueryData query() {
+   	  boolean isDesc = false;
+	  List<String> sortList; 
       lex.eatKeyword("select");
       Collection<String> fields = selectList();
       lex.eatKeyword("from");
@@ -63,7 +68,21 @@ public class Parser {
          lex.eatKeyword("where");
          pred = predicate();
       }
-      return new QueryData(fields, tables, pred);
+	  if (lex.matchKeyword("order")) {
+         lex.eatKeyword("order");
+		 lex.eatKeyword("by");
+         sortList = sortList();
+		 isDesc = false;
+		 if (lex.matchKeyword("asc")) {
+		 	lex.eatKeyword("asc");
+			isDesc = false;
+		 	}
+		 else if (lex.matchKeyword("asc")) {
+		 	lex.eatKeyword("desc");
+			isDesc = true;
+		 	}
+      }
+      return new QueryData(fields, tables, pred, sortList, order);
    }
    
    private Collection<String> selectList() {
@@ -75,7 +94,18 @@ public class Parser {
       }
       return L;
    }
-   
+
+//add "order by"
+//jindi 12/18
+   private List<String> sortList() {
+      List<String> L = new ArrayList<String>();
+      L.add(field());
+      if (lex.matchDelim(',')) {
+         lex.eatDelim(',');
+         L.addAll(selectList());
+      }
+      return L;
+   }
    private Collection<String> tableList() {
       Collection<String> L = new ArrayList<String>();
       L.add(lex.eatId());
