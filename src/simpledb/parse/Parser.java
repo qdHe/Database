@@ -37,9 +37,17 @@ public class Parser {
    
    public Term term() {
       Expression lhs = expression();
-      lex.eatDelim('=');
+      char delim = lex.getDelim();
+      int rlat;
+      switch(delim){
+         case '!': lex.eatDelim('!'); lex.eatDelim('='); rlat = 0; break;
+         case '=': lex.eatDelim('='); rlat = 1; break;
+         case '>': lex.eatDelim('>'); rlat = 2; break;
+         case '<': lex.eatDelim('<'); rlat = 3; break;
+         default: throw new BadSyntaxException();
+      }
       Expression rhs = expression();
-      return new Term(lhs, rhs);
+      return new Term(lhs, rhs, rlat);
    }
    
    public Predicate predicate() {
@@ -48,6 +56,9 @@ public class Parser {
          lex.eatKeyword("and");
          pred.conjoinWith(predicate());
       }
+      //else if (lex.matchKeyword("or")){
+         
+      //}
       return pred;
    }
    

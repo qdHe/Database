@@ -24,7 +24,17 @@ public class Lexer {
    }
    
 //Methods to check the status of the current token
-   
+
+   /**
+    * Returns true if the current token is
+    * the specified delimiter character.
+    * @param d a character denoting the delimiter
+    * @return true if the delimiter is the current token
+    */
+   public char getDelim() {
+      return (char)tok.ttype;
+   }
+
    /**
     * Returns true if the current token is
     * the specified delimiter character.
