@@ -35,13 +35,16 @@ public class BasicQueryPlanner implements QueryPlanner {
       
       //Step 3: Add a selection plan for the predicate
       p = new SelectPlan(p, data.pred());
+
+	  //Step 3.5: Add a sort plan
+	  if (!data.sortFields.isEmpty()){
+	  	p = new SortPlan(p, data.sortFields, tx, data.isDesc);
+	  }	
       
       //Step 4: Project on the field names
       p = new ProjectPlan(p, data.fields());
 
-	  if (!data.sortFields.isEmpty()){
-	  	p = new SortPlan(p, data.sortFields, tx, data.isDesc);
-	  }	
+	  
       return p;
    }
 }
