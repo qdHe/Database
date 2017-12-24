@@ -58,6 +58,8 @@ public class SelectPlan implements Plan {
     * in the underlying query 
     * (but not more than the size of the output table).
     * @see simpledb.query.Plan#distinctValues(java.lang.String)
+    *
+    * TODO
     */
    public int distinctValues(String fldname) {
       if (pred.equatesWithConstant(fldname) != null)

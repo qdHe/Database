@@ -34,7 +34,7 @@ public class FIFOBuffer extends Buffer {
 	/**
 	 * Sets the least recently used time in milliseconds.
 	 */
-	//其实这个函数在FIFO当中应该并不需要
+	//this function is actually not necessary
 	public void setJoinTimeMillis() {
 		joinTimeMillis = System.currentTimeMillis();
 	}

@@ -83,7 +83,7 @@ public class FIFOBufferMgr extends AbstractBufferMgr {
 	protected Buffer findExistingBuffer(Block blk) {
 		long startTime = System.nanoTime();
 
-		//这里不需要重新设置时间
+		//there is no need to reset time
 		FIFOBuffer buff = buffer.get(blk);
 		//if (buff != null) {
 		//	buff.setJoinTimeMillis();
@@ -174,7 +174,7 @@ public class FIFOBufferMgr extends AbstractBufferMgr {
 		SimpleDB.getLogger().log(Level.INFO, "Number available: " + numAvailable);
 		buff.pin();
 
-		//这个地方的设置其实是不需要的？
+		//is this necessary?
 		((FIFOBuffer) buff).setJoinTimeMillis();
 
 		return buff;
@@ -230,7 +230,7 @@ public class FIFOBufferMgr extends AbstractBufferMgr {
 	@Override
 	protected synchronized void unpin(Buffer buff) {
 		buff.unpin();
-		//这个地方的set到底还需要吗？
+		//is 'set' necessary?
 		((FIFOBuffer) buff).setJoinTimeMillis();
 		SimpleDB.getLogger().log(Level.INFO, "Buffer unpinned: " + buff);
 	}

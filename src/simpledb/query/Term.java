@@ -9,6 +9,13 @@ import simpledb.record.Schema;
  */
 public class Term {
    private Expression lhs, rhs;
+   private int rlat;
+   /*
+    * rlat=0 : !=
+    * rlat=1 : =
+    * rlat=2 : >
+    * rlat=3 : <
+    */
    
    /**
     * Creates a new term that compares two expressions
@@ -16,9 +23,10 @@ public class Term {
     * @param lhs  the LHS expression
     * @param rhs  the RHS expression
     */
-   public Term(Expression lhs, Expression rhs) {
+   public Term(Expression lhs, Expression rhs, int rlat) {
       this.lhs = lhs;
       this.rhs = rhs;
+      this.rlat = rlat;
    }
    
    /**
@@ -46,7 +54,26 @@ public class Term {
          return p.distinctValues(rhsName);
       }
       // otherwise, the term equates constants
-      if (lhs.asConstant().equals(rhs.asConstant()))
+      boolean flag = false;
+      switch(rlat){
+         case 0:
+            if (! lhs.asConstant().equals(rhs.asConstant())) flag = true;
+            break;
+         case 1:
+            if (lhs.asConstant().equals(rhs.asConstant())) flag = true;
+            break;
+         case 2:
+            //if (lhs.asConstant() instanceof String && rhs.asConstant() instanceof String && )
+            if (lhs.asConstant().compareTo(rhs.asConstant()) > 0) flag = true;
+            break;
+         case 3:
+            //if (lhs.asConstant() instanceof String && rhs.asConstant() instanceof String && )
+            if (lhs.asConstant().compareTo(rhs.asConstant()) < 0) flag = true;
+            break;
+         default:
+            break;
+      }
+      if (flag)
          return 1;
       else
          return Integer.MAX_VALUE;
@@ -114,10 +141,26 @@ public class Term {
    public boolean isSatisfied(Scan s) {
       Constant lhsval = lhs.evaluate(s);
       Constant rhsval = rhs.evaluate(s);
-      return rhsval.equals(lhsval);
+      boolean flag = false;
+      switch(rlat){
+         case 0: if(!lhsval.equals(rhsval)) flag = true; break;
+         case 1: if(lhsval.equals(rhsval)) flag = true; break;
+         case 2: if(lhsval.compareTo(rhsval) > 0) flag = true; break;
+         case 3: if(lhsval.compareTo(rhsval) < 0) flag = true; break;
+         default: break;
+      }
+      return flag;
    }
    
    public String toString() {
+      String rlat_str;
+      switch(rlat){
+         case 0: rlat_str = "!="; break;
+         case 1: rlat_str = "="; break;
+         case 2: rlat_str = ">"; break;
+         case 3: rlat_str = "<"; break;
+         default: rlat_str = "=";
+      }
       return lhs.toString() + "=" + rhs.toString();
    }
 }

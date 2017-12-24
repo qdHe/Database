@@ -1,4 +1,7 @@
-# SimpleDB_1.1
+﻿# SimpleDB Extension
+
+###12.18 by Yancen
+----------------
 
 <p>参考了https://github.com/SIZMW/simpledb-buffer-manager</p>
 <p>他实现了buffer调度算法的LRU和Clock算法</p>
@@ -15,3 +18,10 @@ java simpledb.server.Startup -fifo
 <p>javadoc,bugs.txt,cs4432.log,design.txt以及testing.txt并没有什么用，可以不用看</p>
 <p>btw：运行的时候，会在simpledb的母文件夹中生成对应buffer调用方法的log文件，比如cs4432_lru.log</p>
 
+###12.19 by Qidu
+----------------
+1. 增加了select语句的筛选条件，原SimpleDB只实现了等于比较，扩增到不等，大于和小于
+> **select** sname, grade **from** students **where** grade > 90
+
+2. 补充了两个优化过的Planner, 参考
+https://github.com/afrasiabi/SimpleDB/tree/master/simpledb/myplanner
