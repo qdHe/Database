@@ -38,13 +38,23 @@ public class RecordComparator implements Comparator<Scan> {
     * @param s2 the second scan
     * @return the result of comparing each scan's current record according to the field list
     */
-   public int compare(Scan s1, Scan s2) {
+   public int compare(Scan s1, Scan s2, boolean isDesc) {
       for (String fldname : fields) {
          Constant val1 = s1.getVal(fldname);
          Constant val2 = s2.getVal(fldname);
          int result = val1.compareTo(val2);
 		 if (isDesc)
 		 	result = -result;
+         if (result != 0)
+            return result;
+      }
+      return 0;
+   }
+      public int compare(Scan s1, Scan s2) {
+      for (String fldname : fields) {
+         Constant val1 = s1.getVal(fldname);
+         Constant val2 = s2.getVal(fldname);
+         int result = val1.compareTo(val2);
          if (result != 0)
             return result;
       }

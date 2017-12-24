@@ -2,6 +2,7 @@ package simpledb.planner;
 
 import simpledb.tx.Transaction;
 import simpledb.query.*;
+import simpledb.materialize.*;
 import simpledb.parse.*;
 import simpledb.server.SimpleDB;
 import java.util.*;
@@ -37,8 +38,9 @@ public class BasicQueryPlanner implements QueryPlanner {
       p = new SelectPlan(p, data.pred());
 
 	  //Step 3.5: Add a sort plan
-	  if (!data.sortFields.isEmpty()){
-	  	p = new SortPlan(p, data.sortFields, tx, data.isDesc);
+
+	  if (data.needSort()){
+	  	p = new SortPlan(p, data.sortFields(), tx, data.isDesc());
 	  }	
       
       //Step 4: Project on the field names

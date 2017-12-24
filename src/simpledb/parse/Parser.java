@@ -69,7 +69,8 @@ public class Parser {
 //=====================================
    public QueryData query() {
    	  boolean isDesc = false;
-	  List<String> sortList; 
+	  boolean needSort = false;
+	  List<String> sortList =null; 
       lex.eatKeyword("select");
       Collection<String> fields = selectList();
       lex.eatKeyword("from");
@@ -82,6 +83,7 @@ public class Parser {
 	  if (lex.matchKeyword("order")) {
          lex.eatKeyword("order");
 		 lex.eatKeyword("by");
+	     needSort = true;
          sortList = sortList();
 		 isDesc = false;
 		 if (lex.matchKeyword("asc")) {
@@ -93,7 +95,7 @@ public class Parser {
 			isDesc = true;
 		 	}
       }
-      return new QueryData(fields, tables, pred, sortList, order);
+      return new QueryData(fields, tables, pred, needSort, sortList, isDesc);
    }
    
    private Collection<String> selectList() {

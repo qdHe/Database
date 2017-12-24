@@ -41,7 +41,10 @@ public class HeuristicQueryPlanner implements QueryPlanner {
          else  // no applicable join
             currentplan = getLowestProductPlan(currentplan);
       }
-      
+      //Step 3.5: Add a sort plan
+	  if (!data.sortFields.isEmpty()){
+	  	p = new SortPlan(p, data.sortFields, tx, data.isDesc);
+	  }	
       // Step 4.  Project on the field names and return
       return new ProjectPlan(currentplan, data.fields());
    }

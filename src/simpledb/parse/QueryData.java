@@ -15,6 +15,7 @@ public class QueryData {
    private Collection<String> fields;
    private Collection<String> tables;
    private Predicate pred;
+   private boolean needSort;
    private List<String> sortFields;
    private boolean isDesc;
    
@@ -22,10 +23,11 @@ public class QueryData {
     * Saves the field and table list and predicate.
     */
    public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred,
-   						List<String> sortFields, bool isDesc) {
+   						boolean needSort,List<String> sortFields, boolean isDesc) {
       this.fields = fields;
       this.tables = tables;
       this.pred = pred;
+	  this.needSort = needSort;
 	  this.sortFields = sortFields;
 	  this.isDesc = isDesc;
    }
@@ -34,9 +36,36 @@ public class QueryData {
 	   this.fields = fields;
 	   this.tables = tables;
 	   this.pred = pred;
-	   this.sortFields = new List<String>;
+	   this.needSort = false;
+	   this.sortFields = null;
 	   this.isDesc = false;
 	}
+
+	 /**
+		 * Returns the fields mentioned in the select clause.
+		 * @return a collection of field names
+		 */
+	public boolean needSort() {
+	   return needSort;
+	}
+
+	 /**
+		 * Returns the fields mentioned in the select clause.
+		 * @return a collection of field names
+		 */
+	public boolean  isDesc () {
+	   return isDesc;
+	}
+
+
+	/**
+		* Returns the fields mentioned in the select clause.
+		* @return a collection of field names
+		*/
+   public List<String> sortFields() {
+	  return sortFields;
+   }
+	   
 
 
    /**

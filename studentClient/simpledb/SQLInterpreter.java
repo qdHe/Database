@@ -5,7 +5,7 @@ import java.io.*;
 public class SQLInterpreter {
     private static Connection conn = null;
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
 	   try {
 			Driver d = new SimpleDriver();
 			conn = d.connect("jdbc:simpledb://localhost", null);
