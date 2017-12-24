@@ -84,6 +84,9 @@ public class MyQueryPlanner implements QueryPlanner {
 				}
 			}
 		}
+		if (data.needSort()){
+	  		p = new SortPlan(p, data.sortFields(), tx, data.isDesc());
+	    }	
 		return new ProjectPlan(current, data.fields());
 	}
 }
