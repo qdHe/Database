@@ -42,7 +42,7 @@ public class QueryData {
 	}
 
 	 /**
-		 * Returns the fields mentioned in the select clause.
+		 * Returns whether order by clause exist.
 		 * @return a collection of field names
 		 */
 	public boolean needSort() {
@@ -50,7 +50,7 @@ public class QueryData {
 	}
 
 	 /**
-		 * Returns the fields mentioned in the select clause.
+		 * Returns the order mentioned in the order by clause.
 		 * @return a collection of field names
 		 */
 	public boolean  isDesc () {
@@ -59,7 +59,7 @@ public class QueryData {
 
 
 	/**
-		* Returns the fields mentioned in the select clause.
+		* Returns the fields mentioned in the order by clause.
 		* @return a collection of field names
 		*/
    public List<String> sortFields() {
