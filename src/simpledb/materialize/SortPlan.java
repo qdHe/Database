@@ -28,7 +28,7 @@ public class SortPlan implements Plan {
       this.tx = tx;
 	  this.isDesc = isDesc;
       sch = p.schema();
-      comp = new RecordComparator(sortfields);
+      comp = new RecordComparator(sortfields, isDesc);
    }
 
    public SortPlan(Plan p, List<String> sortfields, Transaction tx) {
