@@ -1,6 +1,5 @@
-package simpledb.materialize;
+package simpledb.query;
 
-import simpledb.query.*;
 import java.util.*;
 
 /**
@@ -21,10 +20,7 @@ public class RecordComparator implements Comparator<Scan> {
 	  this.isDesc = isDesc;
    }
 
-   public RecordComparator(List<String> fields) {
-      this.fields = fields;
-	  this.isDesc = false;
-   }
+
    
    /**
     * Compares the current records of the two specified scans.

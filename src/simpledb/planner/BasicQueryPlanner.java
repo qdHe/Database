@@ -2,7 +2,6 @@ package simpledb.planner;
 
 import simpledb.tx.Transaction;
 import simpledb.query.*;
-import simpledb.materialize.*;
 import simpledb.parse.*;
 import simpledb.server.SimpleDB;
 import java.util.*;

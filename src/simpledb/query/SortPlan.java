@@ -1,9 +1,8 @@
-package simpledb.materialize;
+package simpledb.query;
 
 import simpledb.tx.Transaction;
 import simpledb.record.*;
-import simpledb.query.*;
-
+import simpledb.materialize.MaterializePlan;
 import java.util.*;
 
 /**
@@ -31,13 +30,7 @@ public class SortPlan implements Plan {
       comp = new RecordComparator(sortfields, isDesc);
    }
 
-   public SortPlan(Plan p, List<String> sortfields, Transaction tx) {
-      this.p = p;
-      this.tx = tx;
-	  this.isDesc = false;
-      sch = p.schema();
-      comp = new RecordComparator(sortfields);
-   }
+
    
    /**
     * This method is where most of the action is.
