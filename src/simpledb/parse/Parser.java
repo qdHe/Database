@@ -90,7 +90,7 @@ public class Parser {
 		 	lex.eatKeyword("asc");
 			isDesc = false;
 		 	}
-		 else if (lex.matchKeyword("asc")) {
+		 else if (lex.matchKeyword("desc")) {
 		 	lex.eatKeyword("desc");
 			isDesc = true;
 		 	}
