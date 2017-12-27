@@ -37,6 +37,9 @@ public class ProjectScan implements Scan {
    }
    
    public Constant getVal(String fldname) {
+      if(fieldlist == null){
+         return s.getVal(fldname);
+      }
       if (hasField(fldname))
          return s.getVal(fldname);
       else
@@ -44,6 +47,9 @@ public class ProjectScan implements Scan {
    }
    
    public int getInt(String fldname) {
+      if(fieldlist == null){
+         return s.getInt(fldname);
+      }
       if (hasField(fldname))
          return s.getInt(fldname);
       else
@@ -51,6 +57,9 @@ public class ProjectScan implements Scan {
    }
    
    public String getString(String fldname) {
+      if(fieldlist == null){
+         return s.getString(fldname);
+      }
       if (hasField(fldname))
          return s.getString(fldname);
       else

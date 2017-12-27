@@ -60,7 +60,9 @@ public class TableInfo {
    public String fileName() {
       return tblname + ".tbl";
    }
-   
+   public String tableName() {
+      return tblname;
+   }
    /**
     * Returns the schema of the table's records
     * @return the table's record schema

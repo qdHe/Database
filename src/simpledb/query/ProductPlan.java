@@ -19,8 +19,25 @@ public class ProductPlan implements Plan {
    public ProductPlan(Plan p1, Plan p2) {
       this.p1 = p1;
       this.p2 = p2;
-      schema.addAll(p1.schema());
-      schema.addAll(p2.schema());
+      Schema sch1 = p1.schema();
+      Schema sch2 = p2.schema();
+      String tblname1 = "lhs";
+      String tblname2 = "rhs";
+      if(p1 instanceof TablePlan){
+         tblname1 = ((TablePlan)p1).tblname();
+      }
+      if(p2 instanceof TablePlan){
+         tblname2 = ((TablePlan)p2).tblname();
+      }
+      sch2 = sch1.rmDup(sch2, tblname1, tblname2);
+      /*if(p1 instanceof TablePlan){
+         p1.updateSch(sch1);
+      }
+      if(p2 instanceof TablePlan){
+         tblname2 = ((TablePlan)p2).tblname();
+      }*/
+      schema.addAll(sch1);
+      schema.addAll(sch2);
    }
    
    /**

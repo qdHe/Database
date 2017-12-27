@@ -67,8 +67,15 @@ public class ProductScan implements Scan {
    public Constant getVal(String fldname) {
       if (s1.hasField(fldname))
          return s1.getVal(fldname);
-      else
+      else if (s2.hasField(fldname))
          return s2.getVal(fldname);
+      else{
+         String prefix =  (fldname.split("\\."))[0];
+         if(prefix.substring(0,1).equals(" ")||prefix.contains("lhs"))
+            return s1.getVal(fldname.substring(fldname.indexOf('.')+1));
+         else
+            return s2.getVal(fldname.substring(fldname.indexOf('.')+1));
+      }
    }
    
    /** 
@@ -80,8 +87,15 @@ public class ProductScan implements Scan {
    public int getInt(String fldname) {
       if (s1.hasField(fldname))
          return s1.getInt(fldname);
-      else
+      else if (s2.hasField(fldname))
          return s2.getInt(fldname);
+      else{
+         String prefix =  (fldname.split("\\."))[0];
+         if(prefix.substring(0,1).equals(" ")||prefix.contains("lhs"))
+            return s1.getInt(fldname.substring(fldname.indexOf('.')+1));
+         else
+            return s2.getInt(fldname.substring(fldname.indexOf('.')+1));
+      }
    }
    
    /** 
@@ -93,8 +107,15 @@ public class ProductScan implements Scan {
    public String getString(String fldname) {
       if (s1.hasField(fldname))
          return s1.getString(fldname);
-      else
+      else if (s2.hasField(fldname))
          return s2.getString(fldname);
+      else{
+         String prefix =  (fldname.split("\\."))[0];
+         if(prefix.substring(0,1).equals(" ")||prefix.contains("lhs"))
+            return s1.getString(fldname.substring(fldname.indexOf('.')+1));
+         else
+            return s2.getString(fldname.substring(fldname.indexOf('.')+1));
+      }
    }
    
    /**

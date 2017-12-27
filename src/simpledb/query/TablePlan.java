@@ -68,4 +68,6 @@ public class TablePlan implements Plan {
    public Schema schema() {
       return ti.schema();
    }
+
+   public String tblname() { return ti.tableName();}
 }

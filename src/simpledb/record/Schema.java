@@ -66,7 +66,26 @@ public class Schema {
       int length = sch.length(fldname);
       addField(fldname, type, length);
    }
-   
+
+   public Schema rmDup(Schema sch2, String tblname1, String tblname2){
+      ArrayList<String> keys = new ArrayList(info.keySet());
+      Iterator<String> itr = keys.iterator();
+      while(itr.hasNext()){
+         String key = itr.next();
+         if(sch2.hasField(key)){
+            info.put(" "+tblname1+"."+key,(FieldInfo)info.get(key));
+            info.remove(key);
+            sch2.rename(key,tblname2);
+         }
+      }
+      return sch2;
+   }
+
+   public void rename(String key, String prefix){
+      info.put(prefix+"."+key,(FieldInfo)info.get(key));
+      info.remove(key);
+   }
+
    /**
     * Adds all of the fields in the specified schema
     * to the current schema.

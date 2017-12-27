@@ -1,4 +1,4 @@
-Dec 19, 2017 11:20:16 AM simpledb.buffer.BufferMgr <init>
-INFO: Using Basic replacement policy
-Dec 19, 2017 11:20:16 AM simpledb.server.SimpleDB init
-INFO: Creating new database
+十二月 27, 2017 8:22:16 下午 simpledb.buffer.BufferMgr <init>
+信息: Using Basic replacement policy
+十二月 27, 2017 8:22:16 下午 simpledb.server.SimpleDB init
+信息: Recovering existing database

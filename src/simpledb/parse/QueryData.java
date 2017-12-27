@@ -95,9 +95,14 @@ public class QueryData {
    
    public String toString() {
       String result = "select ";
-      for (String fldname : fields)
-         result += fldname + ", ";
-      result = result.substring(0, result.length()-2); //remove final comma
+      if(fields == null){
+          result += "*";
+      }
+      else {
+          for (String fldname : fields)
+              result += fldname + ", ";
+          result = result.substring(0, result.length() - 2); //remove final comma
+      }
       result += " from ";
       for (String tblname : tables)
          result += tblname + ", ";

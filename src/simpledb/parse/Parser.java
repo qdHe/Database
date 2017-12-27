@@ -56,17 +56,10 @@ public class Parser {
          lex.eatKeyword("and");
          pred.conjoinWith(predicate());
       }
-      //else if (lex.matchKeyword("or")){
-         
-      //}
       return pred;
    }
    
 // Methods for parsing queries
-//=====================================
-//add "order by"
-//jindi 12/18
-//=====================================
    public QueryData query() {
    	  boolean isDesc = false;
 	  boolean needSort = false;
@@ -79,7 +72,12 @@ public class Parser {
       if (lex.matchKeyword("where")) {
          lex.eatKeyword("where");
          pred = predicate();
-      }
+      }/*
+      if (lex.matchKeyword("group")){
+         lex.eatKeyword("group");
+         lex.eatKeyword("by");
+         Collection<String> groupFields = selectList();
+      }*/
 	  if (lex.matchKeyword("order")) {
          lex.eatKeyword("order");
 		 lex.eatKeyword("by");
@@ -99,11 +97,17 @@ public class Parser {
    }
    
    private Collection<String> selectList() {
-      Collection<String> L = new ArrayList<String>();
-      L.add(field());
-      if (lex.matchDelim(',')) {
-         lex.eatDelim(',');
-         L.addAll(selectList());
+      Collection<String> L = null;
+      if(lex.matchDelim('*')){
+         lex.eatDelim('*');
+      }
+      else {
+         L = new ArrayList<String>();
+         L.add(field());
+         if (lex.matchDelim(',')) {
+            lex.eatDelim(',');
+            L.addAll(selectList());
+         }
       }
       return L;
    }
