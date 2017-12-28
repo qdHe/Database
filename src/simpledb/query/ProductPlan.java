@@ -19,8 +19,10 @@ public class ProductPlan implements Plan {
    public ProductPlan(Plan p1, Plan p2) {
       this.p1 = p1;
       this.p2 = p2;
-      Schema sch1 = p1.schema();
-      Schema sch2 = p2.schema();
+      Schema sch1 = new Schema();
+      sch1.addAll(p1.schema());
+      Schema sch2 = new Schema();
+      sch2.addAll(p2.schema());
       String tblname1 = "lhs";
       String tblname2 = "rhs";
       if(p1 instanceof TablePlan){
